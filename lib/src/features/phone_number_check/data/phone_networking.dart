@@ -1,22 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-class EmailCheckScreen extends StatefulWidget {
-  const EmailCheckScreen({super.key});
+class PhoneCheckScreen extends StatefulWidget {
+  const PhoneCheckScreen({super.key});
 
   @override
-  State<EmailCheckScreen> createState() => _EmailCheckScreenState();
+  State<PhoneCheckScreen> createState() => _PhoneCheckScreenState();
 }
 
-class _EmailCheckScreenState extends State<EmailCheckScreen> {
-  final emailTextController = TextEditingController();
+class _PhoneCheckScreenState extends State<PhoneCheckScreen> {
+  final phoneTextController = TextEditingController();
   void returnOutput(String input) {
-    debugPrint('Email: $input');
+    debugPrint('Phone Number: $input');
   }
 
   @override
   void dispose() {
-    emailTextController.dispose();
+    phoneTextController.dispose();
     super.dispose();
   }
 
@@ -31,7 +31,7 @@ class _EmailCheckScreenState extends State<EmailCheckScreen> {
             SvgPicture.asset(
               height: 150,
               width: 150,
-              'asset/images/email.svg',
+              'asset/images/phone.svg',
             ),
             const SizedBox(height: 50),
             //TextField
@@ -46,11 +46,11 @@ class _EmailCheckScreenState extends State<EmailCheckScreen> {
                 child: Center(
                   child: TextField(
                     onSubmitted: (value) => returnOutput(value),
-                    keyboardType: TextInputType.emailAddress,
-                    controller: emailTextController,
+                    keyboardType: TextInputType.phone,
+                    controller: phoneTextController,
                     decoration: const InputDecoration(
                         prefixIcon: Icon(Icons.search),
-                        hintText: 'Enter your email',
+                        hintText: 'Enter your phone number',
                         hintStyle: TextStyle(fontSize: 14),
                         enabledBorder: InputBorder.none,
                         focusedBorder: InputBorder.none),
@@ -60,7 +60,7 @@ class _EmailCheckScreenState extends State<EmailCheckScreen> {
             ),
 
             ElevatedButton(
-              onPressed: () => returnOutput(emailTextController.text),
+              onPressed: () => returnOutput(phoneTextController.text),
               style: ElevatedButton.styleFrom(),
               child: const Text('Submit'),
             )

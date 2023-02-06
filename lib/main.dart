@@ -1,3 +1,5 @@
+import 'package:email_checker/src/features/email_check/presentation/screens/email_check_screen.dart';
+import 'package:email_checker/src/features/phone_number_check/data/phone_networking.dart';
 import 'package:flutter/material.dart';
 
 void main() => runApp(const MyApp());
@@ -12,7 +14,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Valid8',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primarySwatch: Colors.deepPurple,
       ),
       home: const HomePage(),
     );
@@ -29,14 +31,29 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
+    return DefaultTabController(
+      length: 2,
       child: Scaffold(
         appBar: AppBar(
-          title: const Text('Valid8'),
-          centerTitle: true,
-          
+          flexibleSpace: Column(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: const [
+              TabBar(
+                tabs: [
+                  Tab(icon: Icon(Icons.email)),
+                  Tab(icon: Icon(Icons.phone)),
+                ],
+              ),
+            ],
+          ),
         ),
-        
+        body: const TabBarView(
+          children: [
+            EmailCheckScreen(),
+            // Center(child: Text('Email'),),
+            PhoneCheckScreen()
+          ],
+        ),
       ),
     );
   }
