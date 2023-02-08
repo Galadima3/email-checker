@@ -1,6 +1,8 @@
 import 'package:email_checker/src/features/email_check/presentation/screens/email_check_screen.dart';
-import 'package:email_checker/src/features/phone_number_check/data/phone_networking.dart';
+
 import 'package:flutter/material.dart';
+
+import 'src/features/phone_number_check/presentation/screens/phone_number_check_screen.dart';
 
 void main() => runApp(const MyApp());
 
@@ -50,8 +52,7 @@ class _HomePageState extends State<HomePage> {
         body: const TabBarView(
           children: [
             EmailCheckScreen(),
-            // Center(child: Text('Email'),),
-            PhoneCheckScreen()
+            PhoneCheckScreen(),
           ],
         ),
       ),
