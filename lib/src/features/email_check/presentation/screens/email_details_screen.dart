@@ -1,6 +1,8 @@
 import 'package:email_checker/src/features/email_check/data/email_networking.dart';
 import 'package:email_checker/src/features/email_check/domain/email_model.dart';
+import 'package:email_checker/utils/common_widgets.dart';
 import 'package:email_checker/utils/constants.dart';
+import 'package:rive/rive.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -45,28 +47,37 @@ class _EmailDetailsScreenState extends State<EmailDetailsScreen> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(snapshot.data!.email),
-                      const SizedBox(
-                        height: 20,
-                      ),
-                      const Text('Validation Details'),
-                      Container(
-                        padding: const EdgeInsets.all(8),
-                        height: 75,
-                        width: 250,
-                        decoration: BoxDecoration(
-                            color: Colors.deepPurple.shade300,
-                            borderRadius: BorderRadius.circular(12)),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            const Text('Result'),
-                            SvgPicture.asset(snapshot.data!.isValidFormat.value
-                                ? successImage
-                                : failImage)
-                          ],
+                      constantSpacing,
+                      Center(
+                        child: SvgPicture.asset(
+                          height: 120,
+                          width: 120,
+                          'asset/images/done.svg',
                         ),
-                      )
+                      ),
+                      constantSpacing,
+
+                      Text('Email: ${snapshot.data!.email}',
+                          style: const TextStyle(
+                            fontFamily: 'OpenSans-Medium',
+                            fontSize: 16,
+                          )),
+                      constantSpacing,
+
+                      //email validity
+                      ResultTile(asyncData: snapshot),
+                      constantSpacing,
+                      ResultTileWithIcon(
+                          asyncData: snapshot, textData: 'Deliverability'),
+                      constantSpacing,
+                      QualityScoreTile(
+                          asyncData: snapshot, textData: 'Quality Score'),
+                      constantSpacing,
+                      FreeEmailTile(
+                          asyncData: snapshot, textData: 'Free Email'),
+                      constantSpacing,
+                      DisposableEmailTile(
+                          asyncData: snapshot, textData: 'Disposable Email')
                     ],
                   ),
                 );

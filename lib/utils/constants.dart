@@ -1,3 +1,5 @@
+import 'package:flutter/material.dart';
+
 class APIConstants{
   //email
   static String emailBaseUrl = 'https://emailvalidation.abstractapi.com/v1/?api_key=';
@@ -9,3 +11,9 @@ class APIConstants{
 
 const String successImage = 'asset/images/success.svg';
 const String failImage = 'asset/images/fail.svg';
+
+const resultTextStyle = TextStyle(
+  fontSize: 16,
+  fontWeight: FontWeight.w400
+);
+const constantSpacing = SizedBox(height: 17.5);
