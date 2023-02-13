@@ -1,6 +1,7 @@
+import 'package:email_checker/src/features/phone_number_check/presentation/screens/phone_detail_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:intl_phone_field/intl_phone_field.dart';
+
 
 class PhoneCheckScreen extends StatefulWidget {
   const PhoneCheckScreen({super.key});
@@ -10,13 +11,20 @@ class PhoneCheckScreen extends StatefulWidget {
 }
 
 class _PhoneCheckScreenState extends State<PhoneCheckScreen> {
+  final _phoneFormKey = GlobalKey<FormState>();
   final phoneTextController = TextEditingController();
-  void returnOutput(String input) {
-    debugPrint('Phone Number: $input');
+  var countryCode = '';
+  void goToNextPage() {
+    if (phoneTextController.text.isNotEmpty &&
+        _phoneFormKey.currentState!.validate() &&
+        !(phoneTextController.text.length < 10)) {
+      Navigator.of(context).push(MaterialPageRoute(
+        builder: (context) => PhoneDetailScreen(
+          phoneNumber: phoneTextController.text,
+        ),
+      ));
+    }
   }
-
-
-  
 
   @override
   void dispose() {
@@ -49,24 +57,33 @@ class _PhoneCheckScreenState extends State<PhoneCheckScreen> {
                 decoration: BoxDecoration(
                     color: Colors.grey.shade100,
                     borderRadius: BorderRadius.circular(12)),
-                child: Center(
-                  child: IntlPhoneField(
-                    controller: phoneTextController,
-                    decoration: const InputDecoration(
-                      border: OutlineInputBorder(
-                        borderSide: BorderSide(),
-                      ),
+                child: Form(
+                  key: _phoneFormKey,
+                  autovalidateMode: AutovalidateMode.onUserInteraction,
+                  child: Center(
+                    child: TextFormField(
+                      validator: (value) {
+                        if (value!.isEmpty && value.length < 10) {
+                          return 'Phone number (+x xxx-xxx-xxxx)';
+                        }
+                        return null;
+                      },
+                      onFieldSubmitted: (value) => goToNextPage,
+                      keyboardType: TextInputType.phone,
+                      controller: phoneTextController,
+                      decoration: const InputDecoration(
+                          prefixIcon: Icon(Icons.phone),
+                          hintText: 'Enter your phone number',
+                          hintStyle: TextStyle(fontSize: 14),
+                          enabledBorder: InputBorder.none,
+                          focusedBorder: InputBorder.none),
                     ),
-                    initialCountryCode: 'NG',
-                    onSubmitted: (p0) => returnOutput('+234$p0'),
                   ),
                 ),
               ),
             ),
-
             ElevatedButton(
-              onPressed: () => returnOutput(phoneTextController.text),
-              style: ElevatedButton.styleFrom(),
+              onPressed: goToNextPage,
               child: const Text('Submit'),
             )
           ],
@@ -76,15 +93,21 @@ class _PhoneCheckScreenState extends State<PhoneCheckScreen> {
   }
 }
 
+//                   ),
 
-// TextField(
-//                     onSubmitted: (value) => returnOutput(value),
-//                     keyboardType: TextInputType.phone,
+// IntlPhoneField(
+//                     onCountryChanged: (value){
+//                       setState(() {
+//                         value = countryCode as Country;
+//                         debugPrint(value.code);
+//                       });
+//                     },
 //                     controller: phoneTextController,
 //                     decoration: const InputDecoration(
-//                         prefixIcon: Icon(Icons.search),
-//                         hintText: 'Enter your phone number',
-//                         hintStyle: TextStyle(fontSize: 14),
-//                         enabledBorder: InputBorder.none,
-//                         focusedBorder: InputBorder.none),
+//                       border: OutlineInputBorder(
+//                         borderSide: BorderSide(),
+//                       ),
+//                     ),
+//                     initialCountryCode: 'NG',
+//                     onSubmitted: (p0) => goToNextPage('+234$p0'),
 //                   ),

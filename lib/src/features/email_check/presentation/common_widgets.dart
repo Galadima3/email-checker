@@ -60,7 +60,7 @@ class ResultTileWithIcon extends StatelessWidget {
                   Icons.check,
                   color: Colors.green,
                 )
-              : const Icon(Icons.cancel)
+              : const Icon(Icons.cancel, color: Colors.red,)
         ],
       ),
     );
@@ -132,7 +132,7 @@ class FreeEmailTile extends StatelessWidget {
                   Icons.check,
                   color: Colors.green,
                 )
-              : const Icon(Icons.cancel)
+              : const Icon(Icons.cancel, color: Colors.red,)
         ],
       ),
     );

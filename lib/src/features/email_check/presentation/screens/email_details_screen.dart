@@ -1,8 +1,7 @@
 import 'package:email_checker/src/features/email_check/data/email_networking.dart';
 import 'package:email_checker/src/features/email_check/domain/email_model.dart';
-import 'package:email_checker/utils/common_widgets.dart';
+import 'package:email_checker/src/features/email_check/presentation/common_widgets.dart';
 import 'package:email_checker/utils/constants.dart';
-import 'package:rive/rive.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -15,7 +14,6 @@ class EmailDetailsScreen extends StatefulWidget {
 }
 
 class _EmailDetailsScreenState extends State<EmailDetailsScreen> {
-  //late List<EmailModel>? _emailModel = [];
   late Future<EmailModel> _value;
   @override
   void initState() {
@@ -24,8 +22,6 @@ class _EmailDetailsScreenState extends State<EmailDetailsScreen> {
   }
 
   Future<EmailModel> _getData() async {
-    // var _emailModel = EmailApiService().getEmailInfo(widget.emailAddress);
-    // Future.delayed(const Duration(seconds: 1)).then((value) => setState(() {}));
     return EmailApiService().getEmailInfo(widget.emailAddress);
   }
 
@@ -50,9 +46,9 @@ class _EmailDetailsScreenState extends State<EmailDetailsScreen> {
                       constantSpacing,
                       Center(
                         child: SvgPicture.asset(
-                          height: 120,
+                          height: 120, 
                           width: 120,
-                          'asset/images/done.svg',
+                          snapshot.data!.deliverability == 'DELIVERABLE' ? validImage : invalidImage,
                         ),
                       ),
                       constantSpacing,
